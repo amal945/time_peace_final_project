@@ -1,0 +1,134 @@
+{
+  "project_info": {
+    "project_number": "297847348415",
+    "project_id": "time-peace-final-project",
+    "storage_bucket": "time-peace-final-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297847348415:android:3418c695f2d19700963a0a",
+        "android_client_info": {
+          "package_name": "com.example.time_p"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297847348415-7kchephdceu6m8jalnn5ahmmnobg9del.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9mNzjHoLBuBJUawx0EV3QAY5i_kSbm04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297847348415-7kchephdceu6m8jalnn5ahmmnobg9del.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "297847348415-2h8uqb7rebejjc10heo1vpllq2chauev.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.timePeaceAdminPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297847348415:android:17dedd1963e52875963a0a",
+        "android_client_info": {
+          "package_name": "com.example.time_peace_admin_panel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297847348415-b9f7u1212017c0p1lgjgqgcgo8g94lh4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.time_peace_admin_panel",
+            "certificate_hash": "e7a9df590deb5b29cc0d9a2a1db2f42127f92da2"
+          }
+        },
+        {
+          "client_id": "297847348415-7kchephdceu6m8jalnn5ahmmnobg9del.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9mNzjHoLBuBJUawx0EV3QAY5i_kSbm04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297847348415-7kchephdceu6m8jalnn5ahmmnobg9del.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "297847348415-2h8uqb7rebejjc10heo1vpllq2chauev.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.timePeaceAdminPanel"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297847348415:android:9cba8f18011a0c2b963a0a",
+        "android_client_info": {
+          "package_name": "com.example.time_peace_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297847348415-6nh5i684h0co219buk69ikv5nmclhtg8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.time_peace_project",
+            "certificate_hash": "e7a9df590deb5b29cc0d9a2a1db2f42127f92da2"
+          }
+        },
+        {
+          "client_id": "297847348415-7kchephdceu6m8jalnn5ahmmnobg9del.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9mNzjHoLBuBJUawx0EV3QAY5i_kSbm04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297847348415-7kchephdceu6m8jalnn5ahmmnobg9del.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "297847348415-2h8uqb7rebejjc10heo1vpllq2chauev.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.timePeaceAdminPanel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
