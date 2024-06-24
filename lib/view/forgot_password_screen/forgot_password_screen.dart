@@ -4,8 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:time_peace_project/Widgets/constants.dart';
 
-import '../login_in_screen/login_page.dart';
-
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
 
@@ -13,7 +11,9 @@ class ForgotPassword extends StatefulWidget {
   State<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+    
+
+class _ForgotPasswordState extends State<ForgotPassword> {  
   final _enteredEmail = TextEditingController();
   final formkeyResetPassword = GlobalKey<FormState>();
   showErrorMessage(String error) {
@@ -23,6 +23,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ),
     );
   }
+
+
 
   showSuccessMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -126,11 +128,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               children: [
                 ElevatedButton(
                   style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all<Size>(
+                    minimumSize: WidgetStateProperty.all<Size>(
                       Size(
                           size.width - 50, 50), // specify width and height here
                     ),
-                    backgroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor: WidgetStateProperty.all<Color>(
                       Colors.black, // specify button color here
                     ),
                   ),

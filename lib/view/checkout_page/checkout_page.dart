@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:time_peace_project/view/dash_screen/dash.dart';
 import '../../model/address_model.dart';
 import '../../model/cart_model.dart';
+import 'package:intl/intl.dart';
 
 class CheckoutPage extends StatefulWidget {
   final List<Cart> cartData;
@@ -77,16 +78,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
     try {
       // Start a Firestore transaction
       await FirebaseFirestore.instance.runTransaction((transaction) async {
-        // Step 1: Collect all the data
         List<Map<String, dynamic>> productUpdates = [];
         List<Map<String, dynamic>> orderData = [];
+
         for (var cart in widget.cartData) {
           // Get a reference to the product document
           DocumentReference productRef = FirebaseFirestore.instance
               .collection('products')
               .doc(cart.productId);
 
-          // Get the current product data
+          // Get the current product data within the transaction
           DocumentSnapshot productSnapshot = await transaction.get(productRef);
 
           if (!productSnapshot.exists) {
@@ -106,6 +107,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
             'newQuantity': currentQuantity - cart.quantity,
           });
 
+          // Get current date and time as a string
+          String currentTime =
+              DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+
           // Prepare the order data
           orderData.add({
             'userId': user!.uid,
@@ -115,16 +120,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
             'price': cart.price,
             'quantity': cart.quantity,
             'deliveryCharge': deliveryCharge,
-            'totalPrice':
-                cart.price * cart.quantity, // Store price for each product
+            'totalPrice': cart.price * cart.quantity,
             'paymentId': response.paymentId,
             'address': widget.address.toMap(),
-            'orderStatus': 'Pending',
-            'timestamp': FieldValue.serverTimestamp(),
+            'orderStatus': ["Order Placed"],
+            'statusTimes': [currentTime],
+            'timestamp': currentTime,
           });
         }
 
-        // Step 2: Execute all the writes
+        // Execute all the writes within the transaction
         for (var productUpdate in productUpdates) {
           transaction.update(productUpdate['ref'], {
             'quantity': productUpdate['newQuantity'],
@@ -137,10 +142,35 @@ class _CheckoutPageState extends State<CheckoutPage> {
         }
       });
 
-      print("Order created");
-    } catch (e) {
+      // If transaction succeeds, delete cart items for the user
+      await _deleteCartItems();
+
+      print("Order created successfully");
+    } catch (e, stackTrace) {
       print('Failed to create order: $e');
       Fluttertoast.showToast(msg: "Failed to create order: $e");
+
+      // Print or log the stack trace for more details
+      print('Stack trace: $stackTrace');
+    }
+  }
+
+  Future<void> _deleteCartItems() async {
+    try {
+      // Query and delete cart items for the current user
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection("cart")
+          .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email)
+          .get();
+
+      // Delete each document found in the query
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        await doc.reference.delete();
+        print('Document ${doc.id} deleted successfully');
+      }
+    } catch (e) {
+      print('Failed to delete cart items: $e');
+      // Handle the error as needed
     }
   }
 

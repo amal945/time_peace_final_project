@@ -14,10 +14,15 @@ import '../workwear_page/workwear_page.dart';
 import 'widgets/custom_category_widget.dart';
 import 'widgets/textfield_custom.dart';
 
-class HomeScreen extends StatelessWidget {
-  final HomeController homeController = Get.put(HomeController());
-
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,9 @@ class HomeScreen extends StatelessWidget {
                 CustomTextField(
                   controller: controller.searchController,
                   onChanged: (value) {
-                    controller.searchProducts(value);
+                    setState(() {
+                      controller.searchProducts(value);
+                    });
                   },
                 ),
                 if (controller.searchController.text.isEmpty) ...[

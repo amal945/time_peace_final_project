@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:time_peace_project/model/order_model.dart';
+import 'package:time_peace_project/view/order_page/order_tracking.dart';
 
 class OrdersPage extends StatefulWidget {
   @override
@@ -36,11 +37,13 @@ class _OrdersPageState extends State<OrdersPage> {
           List<Orders> orders = snapshot.data!.docs
               .map((doc) => Orders.fromDocument(doc))
               .toList();
+          print(orders.length);
 
           return ListView.builder(
             itemCount: orders.length,
             itemBuilder: (context, index) {
               Orders order = orders[index];
+              bool isDelivered = order.orderStatus.last == "Delivered";
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -51,7 +54,8 @@ class _OrdersPageState extends State<OrdersPage> {
                       ListTile(
                         title: Text(order.productName),
                         subtitle: Text(
-                            '${order.quantity} x ₹${order.price.toStringAsFixed(2)}\nStatus: ${order.orderStatus}'),
+                          '${order.quantity} x ₹${order.price.toStringAsFixed(2)}\nStatus: ${order.orderStatus.last}',
+                        ),
                         trailing:
                             Text('₹${(order.totalPrice).toStringAsFixed(2)}'),
                         isThreeLine: true,
@@ -60,25 +64,62 @@ class _OrdersPageState extends State<OrdersPage> {
                         },
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: InkWell(
-                          onTap: () {
-                            _showCancelDialog(order);
-                          },
-                          child: Container(
-                            width: size.width,
-                            height: size.height / 13,
-                            decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(16)),
-                            child: const Center(
-                              child: Text(
-                                "Cancel",
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold),
+                        padding: const EdgeInsets.all(2.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: isDelivered
+                                  ? null
+                                  : () {
+                                      _showCancelDialog(order);
+                                    },
+                              child: Container(
+                                width: size.width / 2.2,
+                                height: size.height / 13,
+                                decoration: BoxDecoration(
+                                  color:
+                                      isDelivered ? Colors.grey : Colors.blue,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "Cancel",
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        OrderTracking(order: order),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: size.width / 2.2,
+                                height: size.height / 13,
+                                decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: const Center(
+                                  child: Text(
+                                    "Detail",
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     ],
@@ -127,7 +168,7 @@ class _OrdersPageState extends State<OrdersPage> {
           .delete();
       Fluttertoast.showToast(msg: "Order cancelled successfully.");
       Fluttertoast.showToast(
-          msg: "Your money will be refunded in 3-7 bussiness days");
+          msg: "Your money will be refunded in 3-7 business days");
     } catch (e) {
       Fluttertoast.showToast(msg: "Failed to cancel order: $e");
     }

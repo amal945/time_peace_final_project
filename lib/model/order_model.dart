@@ -8,10 +8,12 @@ class Orders {
   final int quantity;
   final double deliveryCharge;
   final double totalPrice;
-  final String orderStatus;
-  final Timestamp timestamp;
+  final List<String> orderStatus;
+  final List<String> statusTimes;
+  final String timestamp;
 
   Orders({
+    required this.statusTimes,
     required this.orderId,
     required this.productId,
     required this.productName,
@@ -32,7 +34,8 @@ class Orders {
       quantity: doc['quantity'],
       deliveryCharge: doc['deliveryCharge'].toDouble(),
       totalPrice: doc['totalPrice'].toDouble(),
-      orderStatus: doc['orderStatus'],
+      orderStatus: List<String>.from(doc['orderStatus']),
+      statusTimes: List<String>.from(doc['statusTimes']),
       timestamp: doc['timestamp'],
     );
   }

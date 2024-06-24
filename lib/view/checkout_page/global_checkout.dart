@@ -2,6 +2,7 @@ import 'package:action_slider/action_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:time_peace_project/view/dash_screen/dash.dart';
@@ -21,8 +22,7 @@ class GlobalCheckoutPage extends StatefulWidget {
 class _GlobalCheckoutPageState extends State<GlobalCheckoutPage> {
   late double totalPrice;
   int quantity = 1;
-  int deliveryCharge =
-      50; // Assuming this is in the smallest unit (e.g., paise for INR)
+  int deliveryCharge = 50;
   late int finalAmount;
   late Razorpay _razorpay;
   final user = FirebaseAuth.instance.currentUser;
@@ -32,9 +32,7 @@ class _GlobalCheckoutPageState extends State<GlobalCheckoutPage> {
   @override
   void initState() {
     super.initState();
-    totalPrice = widget.product.price +
-        deliveryCharge /
-            100; // Assuming product price is in main unit (e.g., INR)
+    totalPrice = widget.product.price + deliveryCharge;
 
     _razorpay = Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
@@ -99,6 +97,9 @@ class _GlobalCheckoutPageState extends State<GlobalCheckoutPage> {
         transaction
             .update(productRef, {'quantity': currentQuantity - quantity});
 
+        String currentTime =
+            DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+
         // Add the order to the orders collection
         transaction.set(FirebaseFirestore.instance.collection('orders').doc(), {
           'userId': user!.uid,
@@ -107,12 +108,13 @@ class _GlobalCheckoutPageState extends State<GlobalCheckoutPage> {
           'productName': widget.product.productName,
           'price': widget.product.price,
           'quantity': quantity,
-          'deliveryCharge': deliveryCharge / 100,
+          'deliveryCharge': deliveryCharge,
           'totalPrice': totalPrice,
           'paymentId': response.paymentId,
           'address': widget.address.toMap(),
-          'orderStatus': 'Pending', // Initial order status
-          'timestamp': FieldValue.serverTimestamp(),
+          'orderStatus': ["Order Placed"],
+          'statusTimes': [currentTime],
+          'timestamp': currentTime,
         });
       });
     } catch (e) {
@@ -244,6 +246,3 @@ class _GlobalCheckoutPageState extends State<GlobalCheckoutPage> {
     );
   }
 }
-
-
-

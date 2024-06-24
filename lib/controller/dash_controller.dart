@@ -6,7 +6,7 @@ import '../view/account_page/account_screen.dart';
 import '../view/gift_store_screen/gift_store.dart';
 import '../view/home_screen/home.dart';
 import '../view/login_in_screen/login_page.dart';
-import '../view/notification_screen/notification_screen.dart';
+
 
 
 class DashController extends GetxController {
@@ -28,10 +28,7 @@ class DashController extends GetxController {
       case 1:
         currentScreen = const GiftStore();
         break;
-      case 2:
-        currentScreen = const NotficationScreen();
-        break;
-      case 3:
+       case 2:
         currentScreen = const ScreenAccount();
         break;
       default:

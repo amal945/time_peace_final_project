@@ -1,16 +1,18 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_peace_project/view/address/cart_address_selection_page.dart';
 import 'package:time_peace_project/view/cart_page/cart_widgets/cart_product_widget.dart';
-import 'package:time_peace_project/view/checkout_page/checkout_page.dart';
 import 'package:time_peace_project/widgets/constants.dart';
 import '../../controller/cart_controller.dart';
 import '../../model/cart_model.dart';
 import '../../model/productmodel.dart';
 
 class ScreenCart extends StatelessWidget {
+  
   const ScreenCart({Key? key}) : super(key: key);
 
   @override
@@ -60,7 +62,8 @@ class ScreenCart extends StatelessWidget {
                       List<Cart> cartData = documents
                           .map((doc) => Cart.fromSnapshot(doc))
                           .toList();
-                      List<Product> product = [];
+                   
+                      // List<Product> product = [];
 
                       return Column(
                         children: [

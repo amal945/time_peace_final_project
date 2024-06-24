@@ -4,13 +4,12 @@ import 'package:time_peace_project/view/cart_page/cart.dart';
 import '../account_page/account_screen.dart';
 import '../gift_store_screen/gift_store.dart';
 import '../home_screen/home.dart';
-import '../notification_screen/notification_screen.dart';
 import '../wish_list/wishlist_screen.dart';
 import 'drawer_widget.dart';
 import 'tab_navigation.dart';
 
 class Dash extends StatefulWidget {
-  const Dash({Key? key}) : super(key: key);
+  const Dash({super.key});
 
   @override
   State<Dash> createState() => _DashState();
@@ -61,7 +60,6 @@ class _DashState extends State<Dash> {
         children: [
           HomeScreen(),
           const GiftStore(),
-          const NotficationScreen(),
           const ScreenAccount(),
         ],
       ),
@@ -84,10 +82,6 @@ class _DashState extends State<Dash> {
               GButton(
                 icon: Icons.card_giftcard,
                 text: 'Gift Store',
-              ),
-              GButton(
-                icon: Icons.notifications,
-                text: 'Notifications',
               ),
               GButton(
                 icon: Icons.person_2,

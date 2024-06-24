@@ -1,6 +1,6 @@
 {
-    "name": "time_peace_project",
-    "short_name": "time_peace_project",
+    "name": "time_peace_user",
+    "short_name": "time_peace_user",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
